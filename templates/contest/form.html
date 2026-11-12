@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+  Конкурс мороженого
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-6">
+      
+      {% if '/edit/' in request.path %}
+        <h2>Редактировать заявку {{ form.instance.id }}</h2>
+      {% elif '/delete/' in request.path %}
+        <h2>Удалить заявку {{ form.instance.id }}</h2>
+      {% else %}
+        <h2>Подать заявку</h2>
+      {% endif %}
+
+      {% if '/delete/' in request.path %}
+        <div class="mb-3">
+          <p>{{ form.instance.title }}</p>
+          <p>{{ form.instance.price }}</p>
+          <p>{{ form.instance.description }}</p>
+          <p>{{ form.instance.comment }}</p>
+        </div>
+        
+        <form method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Удалить</button>
+          <a href="{% url 'contest:list' %}" class="btn btn-secondary">Отмена</a>
+        </form>
+
+      {% else %}
+        <form method="post">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% bootstrap_button button_type="submit" content="Отправить" %}
+        </form>
+      {% endif %}
+      
+    </div>
+  </div>
+{% endblock %}

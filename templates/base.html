@@ -1,0 +1,19 @@
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Анфиса для друзей{% endblock %}</title>
+    
+    {% bootstrap_css %}
+</head>
+<body>
+    {% include "includes/header.html" %}
+    
+    <main class="container mt-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    {% include "includes/footer.html" %}
+</body>
+</html>
